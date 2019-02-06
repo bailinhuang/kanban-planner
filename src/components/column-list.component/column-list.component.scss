@@ -1,0 +1,53 @@
+@import '../../main';
+
+.list-wrapper:first-child {
+  margin-left: 8px;
+}
+
+.list-title{
+  @extend %min-space;
+}
+
+.list-wrapper {
+  width: 17rem;
+  min-width: 17rem;
+  margin: 0 4px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.list-content{
+  background-color: #dfe3e6;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  position: relative;
+  white-space: normal;
+  margin: 0.25rem;
+  padding: 0.5rem;
+}
+
+button{
+  @extend %button--unstyled; 
+}
+
+.icon--unstyled{
+	background: none;
+	color: #6b808c;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.card-composer{
+  display: flex;
+  flex-direction: column;
+}

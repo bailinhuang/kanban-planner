@@ -1,0 +1,22 @@
+h1{
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.login-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
