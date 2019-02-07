@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import './nav.component.scss'
+import { Link } from "react-router-dom"
+
 
 export default class Nav extends Component {
   render() {
@@ -6,7 +9,7 @@ export default class Nav extends Component {
       <div className="nav">
         <ul>
           <li>
-            <a href="#">Login</a>
+            <Link to='/'>Logout</Link>
           </li>
         </ul>
       </div>

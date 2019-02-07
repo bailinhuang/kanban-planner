@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import uuid from 'uuid'
 
 import './column-list.component.scss'
 import Card from '../card.component/card.component';
@@ -9,8 +10,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class ColumnList extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       showComposer: false
     }
@@ -25,19 +26,30 @@ class ColumnList extends Component {
   }
 
   addNewCard = () => {
-    let title = document.getElementById('add-card-title').value
-    let details = document.getElementById('add-card-details').value
-    this.props.addCard(title, details, this.props.name)
+    const title = document.getElementById('add-card-title').value
+    const details = document.getElementById('add-card-details').value
+    const card = {
+      id: uuid(),
+      name: title,
+      details: details
+    }
+    this.props.addCard(card, this.props.name)
     this.setState({ showComposer: false })
   }
 
   render() {
     let cards
-    if(this.props.cards !== undefined){
-      cards = this.props.cards.map(card => <Card name={card.name} details={card.details} listName={this.props.name}/>)
+    if (this.props.cards !== undefined) {
+      cards = this.props.cards.map(card =>
+        <Card
+          key={uuid()}
+          card={card}
+          listName={this.props.name}
+          showCardDetailsWindow={this.props.showCardDetailsWindow} />)
     }
+
     return (
-      <div className="list-wrapper">
+      <div key={uuid()} className="list-wrapper">
         <div className="list-content">
           <div className="list-header">
             <h3 className="list-title">{this.props.name}</h3>
@@ -50,13 +62,14 @@ class ColumnList extends Component {
           <div className="list-cards">
             {cards}
           </div>
-          <button className="button--unstyled" onClick={() => this.showComposer()}>
-            <FontAwesomeIcon className="icon--unstyled" icon={faPlus} /> Add another card
-          </button>
+          {!this.state.showComposer &&
+            <button onClick={this.showComposer}>
+              <FontAwesomeIcon className="icon--unstyled" icon={faPlus} /> Add another card
+            </button>}
           {this.state.showComposer && <div className="card-composer">
             <textarea id="add-card-title" placeholder="Enter card's title"></textarea>
             <textarea id="add-card-details" placeholder="Enter card's details"></textarea>
-            <button onClick={() => this.addNewCard()}>Add</button>
+            <button onClick={this.addNewCard}>Add</button>
           </div>}
         </div>
       </div>
@@ -70,16 +83,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    addCard: (name, details, listName) => {
-      dispatch({ type: 'ADD_CARD', name, details, listName });
+    addCard: (card, listName) => {
+      dispatch({ type: 'ADD_CARD', card, listName });
     },
 
     deleteCard: (id) => {
       dispatch({ type: 'DELETE_CARD', id });
-    },
-
-    viewDetails: (id) => {
-      dispatch({ type: 'VIEW_DETAILS', id });
     }
   }
 }

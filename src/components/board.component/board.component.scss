@@ -4,12 +4,12 @@
   margin: 3rem;
   display: flex;
   flex-direction: row;
+  overflow-y: auto; 
 }
 
 .add-list-container{
   width: 17rem;
-  margin: 1.2rem 4px;
-  height: 100%;
+  margin: 1.2rem 4px; 
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

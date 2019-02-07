@@ -10,6 +10,11 @@ $dark-grey: #6b808c;
 	outline: inherit;
 }
 
+%button-sm{ 
+	padding: 0.5rem 0.75rem;
+	border-radius: 4px;
+}
+
 %no-space{
 	margin: 0;
 	padding: 0;
@@ -23,5 +28,3 @@ $dark-grey: #6b808c;
 %input-primary{
 	padding: 0.5rem 0.75rem;
 }
-
-

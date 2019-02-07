@@ -1,9 +1,9 @@
 import uuid from 'uuid'
 
 const initialState = {
-  columnList: [{
+  columnList: [{ id: uuid(),
     name: 'patito', cards: [{ id: uuid(), name: 'hello', details: 'hola' },
-    { id: uuid(), name: 'hello', details: 'hola' }]}],
+    { key: uuid(), name: 'hello', details: 'hola' }]}],
 
     board: [{
       name: "Board 1", columnList: [{
@@ -12,7 +12,6 @@ const initialState = {
       }]
     }]
   }
-
 
 const ADD_CARD = "ADD_CARD"
 const DELETE_CARD = "DELETE_CARD"
@@ -27,15 +26,9 @@ export default function (state = initialState, action) {
   let list
   switch (action.type) {
     case ADD_CARD:
-
-      let card = {
-        id: uuid(),
-        name: action.name,
-        details: action.details
-      }
       newColumnList = [...state.columnList]
       index = newColumnList.findIndex(x => x.name === action.listName)
-      newColumnList[index].cards.push(card)
+      newColumnList[index].cards.push(action.card)
       return Object.assign(
         {},
         state, {

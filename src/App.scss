@@ -1,8 +1,25 @@
-// .App{
-//   display: flex;
-//   justify-content: center;
-//   justify-items: center;
-//   align-content: center;
-//   align-items: center;
-//   height: 100vh;
-// }
+@import './main';
+
+button{
+  @extend %button--unstyled;
+}
+
+.button-primary{
+	font-weight: bold;
+	background-color: #5aac44;
+	box-shadow: 0 1px 0 0 #3f6f21;
+	border: none;
+	color: #fff;
+  @extend %button-sm;
+}
+
+.button-danger{
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  @extend %button-sm
+}
+
+textarea{
+  resize: none;
+}

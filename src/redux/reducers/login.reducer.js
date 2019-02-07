@@ -1,5 +1,3 @@
-import uuid from 'uuid'
-
 const initialState = {
   loggedIn: false
 }

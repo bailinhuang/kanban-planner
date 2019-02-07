@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './card.component.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import uuid from 'uuid'
 
 class Card extends Component {
 
@@ -12,7 +13,7 @@ class Card extends Component {
     }
   }
 
-  showDetails = () => {
+  showDetails = () => { 
     if (!this.state.showDetails) {
       this.setState({ showDetails: true })
     } else {
@@ -21,14 +22,17 @@ class Card extends Component {
   }
 
   render() {
+    let {card} = this.props
+    card.listName = this.props.listName 
+    const {name, details} = card
     return (
-      <div className="card">
+      <div key={uuid()} className="card">
         <div className="card-header">
-          <button className="card-title" onClick={() => this.showDetails()}>{this.props.name}</button>
-          <button><FontAwesomeIcon icon={faEdit} /></button>
+          <button className="card-title" onClick={this.showDetails}>{name}</button>
+          <button onClick={() => this.props.showCardDetailsWindow(this.props.listName, this.props.card)}><FontAwesomeIcon icon={faEdit} /></button>
         </div>
         {this.state.showDetails && <div className="card-details-container">
-          <p className="card-details">{this.props.details}</p>
+          <p className="card-details">{details}</p>
         </div>}
       </div>
     )

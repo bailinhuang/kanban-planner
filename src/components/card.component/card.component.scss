@@ -4,7 +4,7 @@
   align-items: flex-start;
   background-color: white;
   overflow: hidden;
-  padding: 6px 8px 2px;
+  padding: 0.37rem 0.5rem 0.15rem;
   position: relative; 
   margin-bottom: 0.3rem;
   word-wrap: break-word;
@@ -21,6 +21,7 @@
   text-align: left;
   word-break: break-word;
   font-weight: bold;
+  margin-right: 0.5rem;
 }
 
 .card-title--margin{
@@ -31,12 +32,7 @@
 .card-details{
   margin: 0;
   word-break: break-word;
-}
-
-p{
-  overflow: visible;
-  
-}
+} 
 
 .card-details-container{
   display: inline-block;
