@@ -13,7 +13,7 @@ class Card extends Component {
     }
   }
 
-  showDetails = () => { 
+  showDetails = () => {
     if (!this.state.showDetails) {
       this.setState({ showDetails: true })
     } else {
@@ -22,14 +22,16 @@ class Card extends Component {
   }
 
   render() {
-    let {card} = this.props
-    card.listName = this.props.listName 
-    const {name, details} = card
+    let { card } = this.props
+    card.listName = this.props.listName
+    const { name, details } = card
     return (
       <div key={uuid()} className="card">
-        <div className="card-header">
+        <div className="card-header"> 
           <button className="card-title" onClick={this.showDetails}>{name}</button>
-          <button onClick={() => this.props.showCardDetailsWindow(this.props.listName, this.props.card)}><FontAwesomeIcon icon={faEdit} /></button>
+          <button onClick={() => this.props.showCardDetailsWindow(this.props.listId, this.props.card)}>
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
         </div>
         {this.state.showDetails && <div className="card-details-container">
           <p className="card-details">{details}</p>

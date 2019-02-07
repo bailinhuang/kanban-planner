@@ -6,7 +6,7 @@ import Nav from '../nav.component/nav.component'
 import './board.component.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { CardDetail } from '../card-detail.component/card-detail.component'
+import  CardDetail  from '../card-detail.component/card-detail.component'
 
 class Board extends Component {
   constructor(props) {
@@ -14,11 +14,12 @@ class Board extends Component {
     this.state = {
       showListForm: false,
       showWindow: false,
-      cardWindow: undefined
+      cardWindow: undefined,
+      listWindowId: undefined
     }
   }
 
-  showListForm = () => {
+  showListForm = () => { 
     if (!this.state.showListForm) {
       this.setState({ showListForm: true })
     } else {
@@ -27,13 +28,15 @@ class Board extends Component {
   }
 
   addList = () => {
-    let name = document.getElementById("list-title-input").value
-    this.props.addList(name)
-    this.setState({ showListForm: false })
+    const name = document.getElementById("list-title-input").value
+    if (name !== "") {
+      this.props.addList(name)
+      this.setState({ showListForm: false })
+    }
   }
 
-  showCardDetailsWindow = (listName, card) => {
-    this.setState({ showWindow: true, cardWindow: card })
+  showCardDetailsWindow = (listId, card) => {
+    this.setState({ showWindow: true, cardWindow: card, listWindowId: listId })
   }
 
   hideCardDetailsWindow = () => {
@@ -44,8 +47,7 @@ class Board extends Component {
     let columns = this.props.columnList.map(list =>
       <ColumnList
         key={uuid()}
-        name={list.name}
-        cards={list.cards}
+        list={list}
         showCardDetailsWindow={this.showCardDetailsWindow} />)
     return (
       <div key={uuid()}>
@@ -71,7 +73,9 @@ class Board extends Component {
             <div className="window-overlay">
               <CardDetail
                 card={this.state.cardWindow}
-                hideCardDetailsWindow={this.hideCardDetailsWindow} />
+                hideCardDetailsWindow={this.hideCardDetailsWindow}
+                editCard={this.props.editCard} 
+                listId={this.state.listWindowId}/>
             </div>
           }
         </div>
@@ -80,7 +84,7 @@ class Board extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   columnList: state.board.columnList
 });
 
@@ -88,6 +92,10 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     addList: (name) => {
       dispatch({ type: 'ADD_LIST', name });
+    },
+
+    editCard: (card, listId) => {
+      dispatch({ type: 'EDIT_CARD', card, listId });
     },
 
     viewDetails: (id) => {

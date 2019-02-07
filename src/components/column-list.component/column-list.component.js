@@ -31,20 +31,22 @@ class ColumnList extends Component {
     const card = {
       id: uuid(),
       name: title,
-      details: details
+      details: details,
+      dueDate: "none"
     }
-    this.props.addCard(card, this.props.name)
+    this.props.addCard(card, this.props.list.id)
     this.setState({ showComposer: false })
   }
 
   render() {
     let cards
-    if (this.props.cards !== undefined) {
-      cards = this.props.cards.map(card =>
+    if (this.props.list.cards !== undefined) {
+      cards = this.props.list.cards.map(card =>
         <Card
           key={uuid()}
           card={card}
-          listName={this.props.name}
+          listName={this.props.list.name}
+          listId={this.props.list.id}
           showCardDetailsWindow={this.props.showCardDetailsWindow} />)
     }
 
@@ -52,7 +54,7 @@ class ColumnList extends Component {
       <div key={uuid()} className="list-wrapper">
         <div className="list-content">
           <div className="list-header">
-            <h3 className="list-title">{this.props.name}</h3>
+            <h3 className="list-title">{this.props.list.name}</h3>
             <div className="list-header__settings">
               <span>
 
@@ -83,8 +85,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    addCard: (card, listName) => {
-      dispatch({ type: 'ADD_CARD', card, listName });
+    addCard: (card, listId) => {
+      dispatch({ type: 'ADD_CARD', card, listId });
     },
 
     deleteCard: (id) => {

@@ -4,7 +4,8 @@
   margin: 3rem;
   display: flex;
   flex-direction: row;
-  overflow-y: auto; 
+  overflow-y: auto;  
+  min-height: 85vh;
 }
 
 .add-list-container{
@@ -23,6 +24,7 @@
 
 .add-list-container__options{
   display: flex;
+  margin: 0.25rem;
   justify-content: space-between;
 }
 
