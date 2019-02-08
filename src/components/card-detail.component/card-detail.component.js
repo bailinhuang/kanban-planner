@@ -53,7 +53,7 @@ class CardDetail extends Component {
       details: details,
       dueDate: dueDate
     }
-    this.props.editCard(card, listId)
+    this.props.editCard(card, listId, this.props.username)
     this.props.hideCardDetailsWindow()
     if (this.state.saveToCalendar) {
       this.postGoogleCalendar(card)
@@ -61,7 +61,7 @@ class CardDetail extends Component {
   }
 
   deleteCard = () => {
-    this.props.deleteCard(this.props.card.id, this.props.listId)
+    this.props.deleteCard(this.props.card.id, this.props.listId, this.props.username)
     this.props.hideCardDetailsWindow()
   }
 
@@ -132,17 +132,18 @@ class CardDetail extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  columnList: state.board.columnList
+  columnList: state.board.columnList,
+  username: state.login.username
 });
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    editCard: (card, listId) => {
-      dispatch({ type: 'EDIT_CARD', card, listId });
+    editCard: (card, listId, username) => {
+      dispatch({ type: 'EDIT_CARD', card, listId, username});
     },
 
-    deleteCard: (cardId, listId) => {
-      dispatch({ type: 'DELETE_CARD', cardId, listId });
+    deleteCard: (cardId, listId, username) => {
+      dispatch({ type: 'DELETE_CARD', cardId, listId, username });
     }
   }
 }

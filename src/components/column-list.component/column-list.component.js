@@ -96,7 +96,7 @@ const mapDispatchToProps = (dispatch) => {
     },
 
     editListName: (listId, listName, username) => {
-      dispatch({ type: 'EDIT_LIST_name', listId, listName, username })
+      dispatch({ type: 'EDIT_LIST_NAME', listId, listName, username })
     }
   }
 }
