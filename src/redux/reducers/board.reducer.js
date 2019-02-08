@@ -1,38 +1,29 @@
 import uuid from 'uuid'
+import { ADD_CARD, DELETE_CARD, EDIT_CARD, ADD_LIST, EDIT_LIST, DELETE_LIST, ADD_USER_BOARD } from '../actions/board.actions'
 
 const initialState = {
   columnList: [{
-    id: uuid(),
-    name: 'To Do', cards: [{ id: uuid(), name: 'Task 1', details: 'hola' },
-    { key: uuid(), name: 'Task 2', details: 'hola' }]
-  }],
-
-  board: [{
-    name: "Board 1", columnList: [{
-      name: 'patito', cards: [{ id: uuid(), name: 'hello', details: 'hola' },
-      { id: uuid(), name: 'hello', details: 'hola' }]
+    user: '', list: [{
+      id: uuid(),
+      name: 'To Do', cards: [{ id: uuid(), name: 'Task 1', details: 'hola' },
+      { key: uuid(), name: 'Task 2', details: 'hola' }]
     }]
   }]
 }
-
-const ADD_CARD = "ADD_CARD"
-const DELETE_CARD = "DELETE_CARD"
-const EDIT_CARD = "EDIT_CARD"
-const ADD_LIST = "ADD_LIST"
-const DELETE_LIST = "DELETE_LIST"
-const ADD_BOARD = "ADD_BOARD"
-const DELETE_BOARD = "DELETE_BOARD"
 
 export default function (state = initialState, action) {
   let newColumnList
   let index
   let list
   let cardIndex
+  let listIndex 
   switch (action.type) {
     case ADD_CARD:
+    debugger
       newColumnList = [...state.columnList]
-      index = newColumnList.findIndex(x => x.id === action.listId)
-      newColumnList[index].cards.push(action.card)
+      index = newColumnList.findIndex(x => x.user === action.username)
+      listIndex = newColumnList[index].list.findIndex(x => x.id === action.listId)
+      newColumnList[index].list[listIndex].cards.push(action.card)
       return Object.assign(
         {},
         state, {
@@ -60,11 +51,21 @@ export default function (state = initialState, action) {
         });
     case ADD_LIST:
       newColumnList = [...state.columnList]
+      index = newColumnList.findIndex(x => x.user === action.username)
       list = {
         name: action.name,
         cards: []
       }
-      newColumnList.push(list)
+      newColumnList[index].list.push(list)
+      return Object.assign(
+        {},
+        state, {
+          columnList: newColumnList
+        });
+    case EDIT_LIST:
+      newColumnList = [...state.columnList]
+      index = newColumnList.findIndex(x => x.id === action.list.id)
+      newColumnList[index] = action.list
       return Object.assign(
         {},
         state, {
@@ -77,17 +78,13 @@ export default function (state = initialState, action) {
         state, {
 
         });
-    case ADD_BOARD:
+    case ADD_USER_BOARD: 
+      newColumnList = [...state.columnList]
+      newColumnList.push(action.board)
       return Object.assign(
         {},
         state, {
-
-        });
-    case DELETE_BOARD:
-      return Object.assign(
-        {},
-        state, {
-
+          columnList: newColumnList
         });
     default:
       return state

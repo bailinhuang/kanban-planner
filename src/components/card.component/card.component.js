@@ -26,15 +26,15 @@ class Card extends Component {
     card.listName = this.props.listName
     const { name, details } = card
     return (
-      <div key={uuid()} className="card">
-        <div className="card-header"> 
-          <button className="card-title" onClick={this.showDetails}>{name}</button>
+      <div key={uuid()} className='card'>
+        <div className='card-header'> 
+          <button className='card-title' onClick={this.showDetails}>{name}</button>
           <button onClick={() => this.props.showCardDetailsWindow(this.props.listId, this.props.card)}>
             <FontAwesomeIcon icon={faEdit} />
           </button>
         </div>
-        {this.state.showDetails && <div className="card-details-container">
-          <p className="card-details">{details}</p>
+        {this.state.showDetails && <div className='card-details-container'>
+          <p className='card-details'>{details}</p>
         </div>}
       </div>
     )

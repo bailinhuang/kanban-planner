@@ -28,3 +28,7 @@ $dark-grey: #6b808c;
 %input-primary{
 	padding: 0.5rem 0.75rem;
 }
+
+%opaque{
+  background: hsla(0,0%,100%,.3);
+}

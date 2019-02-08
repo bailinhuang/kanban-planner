@@ -1,11 +1,11 @@
 @import '../../main';
 
 .board{
-  margin: 3rem;
+  margin: 0 1rem;
   display: flex;
   flex-direction: row;
   overflow-y: auto;  
-  min-height: 85vh;
+  min-height: 86vh;
 }
 
 .add-list-container{

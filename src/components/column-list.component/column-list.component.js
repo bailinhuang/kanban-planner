@@ -28,49 +28,50 @@ class ColumnList extends Component {
   addNewCard = () => {
     const title = document.getElementById('add-card-title').value
     const details = document.getElementById('add-card-details').value
-    const card = {
-      id: uuid(),
-      name: title,
-      details: details,
-      dueDate: "none"
+    if (title !== '') {
+      const card = {
+        id: uuid(),
+        name: title,
+        details: details,
+        dueDate: 'none'
+      }
+      this.props.addCard(card, this.props.list.id, this.props.username)
+      this.setState({ showComposer: false })
     }
-    this.props.addCard(card, this.props.list.id)
-    this.setState({ showComposer: false })
   }
 
+
   render() {
-    let cards
-    if (this.props.list.cards !== undefined) {
-      cards = this.props.list.cards.map(card =>
+    const {cards, id, name} = this.props.list
+    let cardList
+    if (cards !== undefined) {
+      cardList = cards.map(card =>
         <Card
           key={uuid()}
           card={card}
-          listName={this.props.list.name}
-          listId={this.props.list.id}
+          listName={name}
+          listId={id}
           showCardDetailsWindow={this.props.showCardDetailsWindow} />)
     }
 
     return (
-      <div key={uuid()} className="list-wrapper">
-        <div className="list-content">
-          <div className="list-header">
-            <h3 className="list-title">{this.props.list.name}</h3>
-            <div className="list-header__settings">
-              <span>
-
-              </span>
-            </div>
+      <div key={uuid()} className='list-wrapper'>
+        <div className='list-content'>
+          <div className='list-header'>
+            <input className='list-title' defaultValue={name}
+              contentEditable='true' onBlur={(e) => this.props.editListName(id, e.target.value, this.props.username)}>
+            </input>
           </div>
-          <div className="list-cards">
-            {cards}
+          <div className='list-cards'>
+            {cardList}
           </div>
           {!this.state.showComposer &&
             <button onClick={this.showComposer}>
-              <FontAwesomeIcon className="icon--unstyled" icon={faPlus} /> Add another card
+              <FontAwesomeIcon className='icon--unstyled' icon={faPlus} /> Add another card
             </button>}
-          {this.state.showComposer && <div className="card-composer">
-            <textarea id="add-card-title" placeholder="Enter card's title"></textarea>
-            <textarea id="add-card-details" placeholder="Enter card's details"></textarea>
+          {this.state.showComposer && <div className='card-composer'>
+            <textarea id='add-card-title' placeholder="Enter card's title"></textarea>
+            <textarea id='add-card-details' placeholder="Enter card's details"></textarea>
             <button onClick={this.addNewCard}>Add</button>
           </div>}
         </div>
@@ -80,17 +81,22 @@ class ColumnList extends Component {
 }
 
 const mapStateToProps = state => ({
-  columnList: state.board.columnList
+  columnList: state.board.columnList,
+  username: state.login.username
 });
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addCard: (card, listId) => {
-      dispatch({ type: 'ADD_CARD', card, listId });
+    addCard: (card, listId, username) => {
+      dispatch({ type: 'ADD_CARD', card, listId, username });
     },
 
-    deleteCard: (id) => {
-      dispatch({ type: 'DELETE_CARD', id });
+    deleteCard: (id, listId, username) => {
+      dispatch({ type: 'DELETE_CARD', id, listId, username });
+    },
+
+    editListName: (listId, listName, username) => {
+      dispatch({ type: 'EDIT_LIST_name', listId, listName, username })
     }
   }
 }

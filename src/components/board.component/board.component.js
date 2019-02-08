@@ -6,7 +6,7 @@ import Nav from '../nav.component/nav.component'
 import './board.component.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import  CardDetail  from '../card-detail.component/card-detail.component'
+import CardDetail from '../card-detail.component/card-detail.component'
 
 class Board extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Board extends Component {
     }
   }
 
-  showListForm = () => { 
+  showListForm = () => {
     if (!this.state.showListForm) {
       this.setState({ showListForm: true })
     } else {
@@ -28,9 +28,9 @@ class Board extends Component {
   }
 
   addList = () => {
-    const name = document.getElementById("list-title-input").value
-    if (name !== "") {
-      this.props.addList(name)
+    const name = document.getElementById('list-title-input').value
+    if (name !== '') {
+      this.props.addList(name, this.props.username)
       this.setState({ showListForm: false })
     }
   }
@@ -44,7 +44,9 @@ class Board extends Component {
   }
 
   render() {
-    let columns = this.props.columnList.map(list =>
+    const index = this.props.columnList.findIndex(board => board.user === this.props.username)
+    const board = this.props.columnList[index]
+    let columns = board.list.map(list =>
       <ColumnList
         key={uuid()}
         list={list}
@@ -52,32 +54,29 @@ class Board extends Component {
     return (
       <div key={uuid()}>
         <Nav></Nav>
-        <div className="board">
+        <div className='board'>
           {columns}
-          <div className="add-list-container">
+          <div className='add-list-container'>
             {!this.state.showListForm && <button onClick={this.showListForm}>
               <FontAwesomeIcon icon={faPlus} />
               Add another list</button>}
             {this.state.showListForm &&
               <React.Fragment>
-                <input id="list-title-input" placeholder="Enter list title..."></input>
-                <div className="add-list-container__options">
+                <input id='list-title-input' placeholder='Enter list title...'></input>
+                <div className='add-list-container__options'>
                   <button onClick={this.addList}>Add</button>
                   <button onClick={this.showListForm}><FontAwesomeIcon icon={faTimes} /></button>
                 </div>
-              </React.Fragment>
-            }
+              </React.Fragment>}
           </div>
-          {
-            this.state.showWindow &&
-            <div className="window-overlay">
+          {this.state.showWindow &&
+            <div className='window-overlay'>
               <CardDetail
                 card={this.state.cardWindow}
                 hideCardDetailsWindow={this.hideCardDetailsWindow}
-                editCard={this.props.editCard} 
-                listId={this.state.listWindowId}/>
-            </div>
-          }
+                editCard={this.props.editCard}
+                listId={this.state.listWindowId} />
+            </div>}
         </div>
       </div>
     )
@@ -85,13 +84,14 @@ class Board extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  columnList: state.board.columnList
+  columnList: state.board.columnList,
+  username: state.login.username
 });
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    addList: (name) => {
-      dispatch({ type: 'ADD_LIST', name });
+    addList: (name, username) => {
+      dispatch({ type: 'ADD_LIST', name, username});
     },
 
     editCard: (card, listId) => {

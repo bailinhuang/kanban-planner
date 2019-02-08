@@ -1,5 +1,9 @@
 @import './main';
 
+.App{
+  height: 100vh;
+}
+
 button{
   @extend %button--unstyled;
 }
@@ -20,6 +24,31 @@ button{
   @extend %button-sm
 }
 
+.button-grey{
+  background-color: #fff;
+  color: rgba(0,0,0,0.54);
+  box-shadow: none;
+  text-align: center;
+  border-radius: 3px;
+  border: 2px solid #CDD2D4; 
+}
+
+.button-xl{
+  padding: 1rem 4.65rem;
+}
+
+.button-med{
+  padding: 1rem 1.65rem;
+}
+
 textarea{
   resize: none;
+}
+
+.white-text{
+  color: white;
+}
+
+input{
+  border: none;
 }

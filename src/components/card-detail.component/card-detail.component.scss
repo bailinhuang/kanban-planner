@@ -9,12 +9,12 @@
 
 .card-detail-window{
   background-color: #ebeef0;
-  border-radius: 2px;
+  border-radius: 4px;
   flex-direction: column;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 48px 0 80px; 
+  padding: 1rem 0; 
   position: relative;
   width: 768px;
   z-index: 25; 
@@ -67,4 +67,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-content: center;
+  align-items: baseline;
+}
+
+.justify-left{
+  justify-self: flex-end;
 }
