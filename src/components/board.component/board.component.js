@@ -75,7 +75,8 @@ class Board extends Component {
                 card={this.state.cardWindow}
                 hideCardDetailsWindow={this.hideCardDetailsWindow}
                 editCard={this.props.editCard}
-                listId={this.state.listWindowId} />
+                listId={this.state.listWindowId} 
+                boardList={columns}/>
             </div>}
         </div>
       </div>

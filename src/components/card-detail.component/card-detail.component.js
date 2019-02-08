@@ -96,7 +96,7 @@ class CardDetail extends Component {
   }
 
   render() {
-    const { listName, name, details } = this.props.card
+    const { listName, name, details } = this.props.card  
     return (
       <div className='card-detail-window--wrapper'>
         <div className='card-detail-window'>
@@ -114,8 +114,10 @@ class CardDetail extends Component {
             {!this.state.editableDescription &&
               <p onClick={this.showEditableDescription}>{details}</p>}
             {this.state.editableDescription && <textarea defaultValue={details} id='card-details-textarea'></textarea>}
-            <h4>Due Date</h4>
-            <DatePicker selected={this.state.startDate} onChange={this.handleChange} showTimeSelect id='card-due-date' />
+            <div className="date-selector">
+              <h4>Due Date</h4>
+              <DatePicker selected={this.state.startDate} onChange={this.handleChange} showTimeSelect id='card-due-date' />
+            </div>
             <div className='card-detail--controls'>
               <div>
                 <button className='save-button button-primary' onClick={this.saveEdits}>Save</button>
@@ -139,7 +141,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     editCard: (card, listId, username) => {
-      dispatch({ type: 'EDIT_CARD', card, listId, username});
+      dispatch({ type: 'EDIT_CARD', card, listId, username });
     },
 
     deleteCard: (cardId, listId, username) => {

@@ -16,10 +16,7 @@ class Nav extends Component {
         <div className='logo'>
           <span>KanBai</span>
         </div>
-        <ul className='nav-list'>
-          <li>
-            <Link to='/boards' onClick={this.logout}><span className='white-text'>Boards</span></Link>
-          </li>
+        <ul className='nav-list'> 
           <li>
             <Link to='/' onClick={this.logout}><span className='white-text'>Logout</span></Link>
           </li>
